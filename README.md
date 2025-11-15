@@ -131,8 +131,62 @@ npm run build
 
 - **Vite**: Fast build tool and dev server
 - **React**: UI components and state management
+- **Phaser.js**: 2D game engine for character movement and room visualization
 - **JavaScript**: Game logic and mechanics
 - **CSS**: Custom styling with cyberpunk aesthetic
+
+## Deployment
+
+### Deploy to Render
+
+GensynFarm is configured for easy deployment on Render:
+
+**Option 1: Automatic Deployment (Recommended)**
+
+1. Push your code to GitHub
+2. Go to [Render Dashboard](https://dashboard.render.com/)
+3. Click "New +" → "Static Site"
+4. Connect your GitHub repository
+5. Render will auto-detect the `render.yaml` configuration
+6. Click "Create Static Site"
+
+That's it! Render will automatically:
+- Run `npm install && npm run build`
+- Deploy the `dist` folder
+- Set up proper caching headers
+- Handle SPA routing with redirects
+
+**Option 2: Manual Configuration**
+
+If not using `render.yaml`:
+
+1. **Build Command**: `npm install && npm run build`
+2. **Publish Directory**: `dist`
+3. **Add Redirect Rule**: `/*` → `/index.html` (200)
+
+### Deploy to Other Platforms
+
+**Netlify:**
+```bash
+npm run build
+# Drag and drop the 'dist' folder to Netlify
+```
+
+**Vercel:**
+```bash
+npm install -g vercel
+vercel --prod
+```
+
+**GitHub Pages:**
+```bash
+npm run build
+# Use gh-pages to deploy the dist folder
+```
+
+### Environment Variables
+
+No environment variables needed! The game runs entirely client-side.
 
 ## Roadmap
 
@@ -142,16 +196,23 @@ npm run build
 - Location progression system
 - Save/load with localStorage
 - Full UI with stats, GPUs, jobs, shop
+- **2D room visualization with Phaser.js** ✨
+- **Character movement and interaction** 🎮
+- **Visual GPU monitors with status lights** 💡
+- **Random error system (VRAM, driver, thermal, power)** ⚠️
+- **Auto-recovery and manual restart** 🔄
+- **Location-specific room layouts** 🏠
 
 ### Future Features 🚀
-- 2D isometric visualization with Phaser.js
-- Random events (power outages, heat waves, hardware failures)
+- Random events (power outages, heat waves)
 - Competition from other node operators
 - Advanced bidding system
 - Integration with Gensyn testnet
 - Leaderboards
 - Achievement system
 - Tutorial mode
+- Better character sprite animations
+- Sound effects and background music
 
 ## Contributing
 
