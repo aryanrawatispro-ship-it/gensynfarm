@@ -1,0 +1,106 @@
+// Realistic GPU data based on actual hardware specs and market prices
+export const GPUS = {
+  rtx3060: {
+    id: 'rtx3060',
+    name: 'RTX 3060 12GB',
+    brand: 'NVIDIA',
+    vram: 12,
+    performance: 100, // baseline performance score
+    powerDraw: 170, // watts
+    price: 300,
+    resaleValue: 200,
+    heatOutput: 170,
+    minCooling: 1, // basic air cooling
+    description: 'Consumer GPU. Great for starting out. Low power, decent VRAM.',
+    unlock: 0, // available from start
+  },
+  rtx4070: {
+    id: 'rtx4070',
+    name: 'RTX 4070 12GB',
+    brand: 'NVIDIA',
+    vram: 12,
+    performance: 140,
+    powerDraw: 200,
+    price: 550,
+    resaleValue: 400,
+    heatOutput: 200,
+    minCooling: 1,
+    description: 'Modern consumer GPU. More efficient than 3060.',
+    unlock: 1000, // need $1000 total earnings
+  },
+  rtx4090: {
+    id: 'rtx4090',
+    name: 'RTX 4090 24GB',
+    brand: 'NVIDIA',
+    vram: 24,
+    performance: 250,
+    powerDraw: 450,
+    price: 1600,
+    resaleValue: 1300,
+    heatOutput: 450,
+    minCooling: 2,
+    description: 'Flagship consumer GPU. High VRAM, can handle larger models.',
+    unlock: 5000,
+  },
+  a5000: {
+    id: 'a5000',
+    name: 'RTX A5000 24GB',
+    brand: 'NVIDIA',
+    vram: 24,
+    performance: 200,
+    powerDraw: 230,
+    price: 2200,
+    resaleValue: 1600,
+    heatOutput: 230,
+    minCooling: 2,
+    description: 'Professional workstation GPU. More reliable, ECC memory.',
+    unlock: 8000,
+  },
+  a100_40gb: {
+    id: 'a100_40gb',
+    name: 'A100 40GB',
+    brand: 'NVIDIA',
+    vram: 40,
+    performance: 400,
+    powerDraw: 400,
+    price: 10000,
+    resaleValue: 7500,
+    heatOutput: 400,
+    minCooling: 3,
+    description: 'Data center GPU. Enterprise-grade compute for serious jobs.',
+    unlock: 25000,
+  },
+  a100_80gb: {
+    id: 'a100_80gb',
+    name: 'A100 80GB',
+    brand: 'NVIDIA',
+    vram: 80,
+    performance: 450,
+    powerDraw: 400,
+    price: 15000,
+    resaleValue: 11000,
+    heatOutput: 400,
+    minCooling: 3,
+    description: 'High-memory A100. Can handle the largest models.',
+    unlock: 50000,
+  },
+  h100: {
+    id: 'h100',
+    name: 'H100 80GB',
+    brand: 'NVIDIA',
+    vram: 80,
+    performance: 700,
+    powerDraw: 700,
+    price: 30000,
+    resaleValue: 25000,
+    heatOutput: 700,
+    minCooling: 4,
+    description: 'Top-tier AI accelerator. Massive performance, massive cost.',
+    unlock: 100000,
+  },
+};
+
+export const getGPUById = (id) => GPUS[id];
+export const getAvailableGPUs = (totalEarnings) => {
+  return Object.values(GPUS).filter(gpu => totalEarnings >= gpu.unlock);
+};
