@@ -6,7 +6,16 @@ A realistic simulation game where you build and manage a GPU compute business on
 
 GensynFarm is a web-based simulation game that teaches real concepts about running GPU compute nodes while being fun to play. Start with a single consumer GPU in your bedroom and scale up to a professional data center operation.
 
+**Walk around your operation, interact with your hardware, and watch your GPUs work in real-time with visual status indicators!**
+
 ## Features
+
+### Character Movement & Interaction
+- **Walk Around**: Control your character using WASD or arrow keys
+- **2D Room View**: Top-down visualization of your physical space powered by Phaser.js
+- **Interactive GPUs**: Walk up to hardware and press E to view detailed stats
+- **Visual Status Lights**: See GPU status at a glance (green=running, red=error, orange=overheating)
+- **Location-Specific Layouts**: Each location has unique room size, layout, and props
 
 ### Realistic Hardware
 - **Real GPU specs**: RTX 3060, RTX 4090, A100, H100 with actual VRAM, power draw, and performance metrics
@@ -24,7 +33,9 @@ GensynFarm is a web-based simulation game that teaches real concepts about runni
 - **Thermal management**: Overheating causes throttling and failures
 - **Hardware health**: GPUs degrade over time based on temperature and usage
 - **Location constraints**: Space limits, power capacity, cooling efficiency
-- **Job failures**: VRAM errors, overheating can cause jobs to fail
+- **Random Errors**: GPUs can experience VRAM errors, driver crashes, thermal shutdowns, and power spikes
+- **Error Recovery**: Auto-recovery after 30 seconds or manual restart
+- **Job failures**: High temps and low health dramatically increase error rates
 
 ### Progression System
 - **Start small**: Single GPU in your bedroom
@@ -61,21 +72,33 @@ npm run build
 
 ## How to Play
 
-1. **Accept Jobs**: Browse available compute jobs and accept ones that match your GPU capabilities
-2. **Earn Money**: Complete jobs successfully to earn cash and reputation
-3. **Buy Hardware**: Invest in better GPUs for higher-paying jobs
-4. **Upgrade Location**: Move to bigger spaces as you scale
-5. **Manage Costs**: Watch your power bills and keep GPUs running cool
-6. **Scale Up**: Build from bedroom hobbyist to data center operator
+### Controls
+- **WASD / Arrow Keys**: Move your character around the room
+- **E**: Interact with nearby GPUs to view detailed stats
+- **Mouse**: Click UI elements to accept jobs, buy hardware, and manage your operation
+
+### Gameplay Loop
+1. **Walk Around**: Explore your physical space and check on your GPUs
+2. **Accept Jobs**: Browse available compute jobs and accept ones that match your GPU capabilities
+3. **Monitor Hardware**: Watch status lights and interact with GPUs to check temperature and health
+4. **Earn Money**: Complete jobs successfully to earn cash and reputation
+5. **Buy Hardware**: Invest in better GPUs for higher-paying jobs
+6. **Upgrade Location**: Move to bigger spaces as you scale
+7. **Manage Costs**: Watch your power bills and keep GPUs running cool
+8. **Scale Up**: Build from bedroom hobbyist to data center operator
 
 ### Tips
 
+- **Walk up to your GPUs** to check their real-time status and stats
+- **Watch the status lights**: Green = safe, Orange = hot, Red = error
 - Start with jobs that match your GPU's VRAM (don't overbid)
-- Monitor GPU temperature - overheating causes failures
+- Monitor GPU temperature - overheating causes failures and errors
 - Better locations have better cooling efficiency
 - Idle GPUs still consume 10% power
-- GPU health decreases faster when running hot
+- GPU health decreases faster when running hot (>80°C)
+- Errors are more likely when GPUs are hot (>85°C) or degraded (<50% health)
 - Save money for location upgrades - they unlock more GPU slots
+- Use Force Restart if a GPU gets stuck in an error state
 
 ## Game Mechanics
 
