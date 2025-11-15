@@ -446,6 +446,14 @@ function gameReducer(state, action) {
       };
     }
 
+    case 'ADD_MONEY': {
+      return {
+        ...state,
+        money: state.money + action.amount,
+        totalEarnings: action.amount > 0 ? state.totalEarnings + action.amount : state.totalEarnings,
+      };
+    }
+
     default:
       return state;
   }

@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useGame } from '../store/GameContext';
 import { GENSYN_PRODUCTS, PRODUCT_ERRORS, PRODUCT_STATUS } from '../data/gensynProducts';
+import BlockAssistPanel from './BlockAssistPanel';
+import CodeAssistPanel from './CodeAssistPanel';
+import CodeZeroPanel from './CodeZeroPanel';
+import RLSwarmPanel from './RLSwarmPanel';
 import './ProductsDashboard.css';
 
 export default function ProductsDashboard() {
@@ -224,79 +228,30 @@ export default function ProductsDashboard() {
 }
 
 function ProductDetailModal({ productId, onClose }) {
-  const { state } = useGame();
-  const product = GENSYN_PRODUCTS[productId];
-  const productState = state.productStates[productId];
+  // Render the appropriate panel component based on productId
+  const renderPanel = () => {
+    switch (productId) {
+      case 'blockassist':
+        return <BlockAssistPanel />;
+      case 'codeassist':
+        return <CodeAssistPanel />;
+      case 'codezero':
+        return <CodeZeroPanel />;
+      case 'rl_swarm':
+        return <RLSwarmPanel />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content product-detail-modal" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-content product-panel-modal" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <h3>
-            {product.icon} {product.name}
-          </h3>
-          <button className="close-btn" onClick={onClose}>✖</button>
+          <button className="close-btn" onClick={onClose}>✖ Close</button>
         </div>
-
         <div className="modal-body">
-          <p className="product-description">{product.description}</p>
-
-          <div className="detail-section">
-            <h4>Current Status</h4>
-            <div className="status-badge" style={{
-              background: productState.status === 'running' ? '#1a3f1a' : productState.status === 'error' ? '#3f1a1a' : '#1a1f3a',
-              color: productState.status === 'running' ? '#00ff88' : productState.status === 'error' ? '#ff4444' : '#8899aa',
-            }}>
-              {productState.status.toUpperCase()}
-            </div>
-          </div>
-
-          {productId === 'blockassist' && (
-            <div className="detail-section">
-              <h4>Training Progress</h4>
-              <div className="progress-stat">Episodes Completed: {productState.trainingEpisodes}</div>
-              <div className="progress-stat">Model Accuracy: {productState.modelAccuracy.toFixed(1)}%</div>
-              <div className="progress-stat">Leaderboard Rank: {productState.leaderboardRank || 'N/A'}</div>
-            </div>
-          )}
-
-          {productId === 'codeassist' && (
-            <div className="detail-section">
-              <h4>Assistant Performance</h4>
-              <div className="progress-stat">Suggestions Given: {productState.suggestionsGiven}</div>
-              <div className="progress-stat">Acceptance Rate: {productState.acceptanceRate.toFixed(1)}%</div>
-              <div className="progress-stat">Problems Solved: {productState.problemsSolved}</div>
-              <div className="progress-stat">Specialization Score: {productState.specializationScore}</div>
-            </div>
-          )}
-
-          {productId === 'codezero' && (
-            <div className="detail-section">
-              <h4>Optimization Metrics</h4>
-              <div className="progress-stat">Credits Available: {productState.credits}</div>
-              <div className="progress-stat">Bid Success Rate: {productState.bidSuccessRate.toFixed(1)}%</div>
-              <div className="progress-stat">Job Win Rate: {productState.jobWinRate.toFixed(1)}%</div>
-              <div className="progress-stat">Idle Time Reduction: {productState.idleTimeReduction.toFixed(1)}%</div>
-            </div>
-          )}
-
-          {productId === 'rl_swarm' && (
-            <div className="detail-section">
-              <h4>Swarm Network</h4>
-              <div className="progress-stat">Connected Peers: {productState.connectedPeers}/{productState.maxPeers}</div>
-              <div className="progress-stat">Current Round: {productState.currentRound}/{productState.totalRounds}</div>
-              <div className="progress-stat">Participation Streak: {productState.participationStreak}</div>
-              <div className="progress-stat">Model Accuracy: {productState.modelAccuracy.toFixed(1)}%</div>
-              <div className="progress-stat">Total Rewards: ${productState.rewardsEarned.toFixed(2)}</div>
-            </div>
-          )}
-
-          <div className="detail-section">
-            <h4>Learn More</h4>
-            <a href={product.docs} target="_blank" rel="noopener noreferrer" className="docs-link">
-              View Official Documentation →
-            </a>
-          </div>
+          {renderPanel()}
         </div>
       </div>
     </div>

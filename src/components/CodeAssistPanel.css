@@ -1,0 +1,369 @@
+.codeassist-panel {
+  background: #1a1f3a;
+  border-radius: 8px;
+  padding: 16px;
+  border: 1px solid #2a3f5f;
+}
+
+.codeassist-panel.locked {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.coding-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #8899aa;
+}
+
+/* Code Editor */
+.code-editor {
+  background: #0f1525;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.problem-header {
+  background: #2a3f5f;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.problem-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.diff-badge {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.diff-badge.easy {
+  background: #1a3f1a;
+  color: #00ff88;
+}
+
+.diff-badge.medium {
+  background: #3f3f1a;
+  color: #ffaa00;
+}
+
+.diff-badge.hard {
+  background: #3f1a1a;
+  color: #ff4444;
+}
+
+.timer {
+  font-size: 12px;
+  color: #00aaff;
+  font-family: monospace;
+}
+
+.problem-description {
+  padding: 12px;
+  font-size: 13px;
+  color: #8899aa;
+  border-bottom: 1px solid #1a2a3a;
+}
+
+.test-cases {
+  padding: 12px;
+  font-size: 12px;
+  color: #8899aa;
+  border-bottom: 1px solid #1a2a3a;
+}
+
+.test-case {
+  margin: 4px 0;
+  padding: 4px 8px;
+  background: #0a0e1a;
+  border-radius: 3px;
+  font-family: monospace;
+  color: #00aaff;
+}
+
+.editor-container {
+  position: relative;
+  padding: 12px;
+}
+
+.code-textarea {
+  width: 100%;
+  min-height: 250px;
+  background: #0a0e1a;
+  border: 1px solid #2a3f5f;
+  border-radius: 4px;
+  padding: 12px;
+  color: #fff;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.code-textarea:focus {
+  outline: none;
+  border-color: #00aaff;
+}
+
+.suggestion-popup {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: #1a3f3f;
+  border: 2px solid #00aaff;
+  border-radius: 6px;
+  padding: 12px;
+  max-width: 300px;
+  box-shadow: 0 0 20px rgba(0, 170, 255, 0.3);
+  animation: slideInUp 0.3s ease;
+  z-index: 10;
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.suggestion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: #00aaff;
+  font-weight: bold;
+}
+
+.suggestion-header button {
+  background: #2a5f5f;
+  border: 1px solid #3a7f7f;
+  color: #00ffff;
+  padding: 4px 12px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.suggestion-header button:hover {
+  background: #3a7f7f;
+}
+
+.suggestion-text {
+  font-size: 12px;
+  color: #fff;
+  line-height: 1.5;
+}
+
+.editor-actions {
+  display: flex;
+  gap: 8px;
+  padding: 0 12px 12px 12px;
+}
+
+.run-btn {
+  flex: 2;
+  padding: 10px;
+  background: #1a3f1a;
+  border: 1px solid #2a5f2a;
+  color: #00ff88;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.run-btn:hover:not(:disabled) {
+  background: #2a5f2a;
+  border-color: #3a7f3a;
+}
+
+.run-btn:disabled {
+  background: #1a1f2a;
+  border-color: #2a3f4f;
+  color: #5a6f7f;
+  cursor: not-allowed;
+}
+
+.cancel-btn {
+  flex: 1;
+  padding: 10px;
+  background: #3a1f1f;
+  border: 1px solid #5a2f2f;
+  color: #ff8888;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.cancel-btn:hover {
+  background: #5a2f2f;
+  border-color: #7a3f3f;
+}
+
+.test-results {
+  padding: 12px;
+  background: #0a0e1a;
+}
+
+.result {
+  padding: 8px 12px;
+  margin: 4px 0;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: monospace;
+}
+
+.result.pass {
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid #00ff88;
+  color: #00ff88;
+}
+
+.result.fail {
+  background: rgba(255, 68, 68, 0.1);
+  border: 1px solid #ff4444;
+  color: #ff4444;
+}
+
+.result.error {
+  background: rgba(255, 170, 0, 0.1);
+  border: 1px solid #ffaa00;
+  color: #ffaa00;
+}
+
+/* Problems Section */
+.problems-section h4 {
+  margin: 0 0 12px 0;
+  color: #00aaff;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.problems-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.problem-card {
+  background: #0f1525;
+  border: 2px solid #2a3f5f;
+  border-radius: 6px;
+  padding: 12px;
+  transition: all 0.2s ease;
+}
+
+.problem-card:hover {
+  border-color: #3a5f7f;
+  transform: translateX(4px);
+}
+
+.problem-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.problem-card-title {
+  font-size: 13px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.problem-card-desc {
+  font-size: 12px;
+  color: #8899aa;
+  margin-bottom: 8px;
+}
+
+.problem-card-stats {
+  display: flex;
+  gap: 12px;
+  font-size: 11px;
+  color: #8899aa;
+  margin-bottom: 8px;
+}
+
+.problem-card-stats .reward {
+  color: #00ff88;
+  font-weight: bold;
+}
+
+.problem-card-stats .xp {
+  color: #00aaff;
+  font-weight: bold;
+}
+
+.solve-btn {
+  width: 100%;
+  padding: 8px;
+  background: #1a3f1a;
+  border: 1px solid #2a5f2a;
+  color: #00ff88;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.solve-btn:hover {
+  background: #2a5f2a;
+  border-color: #3a7f3a;
+}
+
+/* Assistant Stats */
+.assistant-stats {
+  background: #0f1525;
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #1a2a3a;
+  font-size: 12px;
+}
+
+.stat-row:last-child {
+  border-bottom: none;
+}
+
+.stat-row span:first-child {
+  color: #8899aa;
+}
+
+.stat-row span:last-child {
+  color: #fff;
+  font-weight: bold;
+}
