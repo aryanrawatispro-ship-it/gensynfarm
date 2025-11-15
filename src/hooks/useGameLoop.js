@@ -9,6 +9,7 @@ export function useGameLoop() {
   const lastTickRef = useRef(Date.now());
   const jobGenerationTimerRef = useRef(0);
   const powerBillTimerRef = useRef(0);
+  const errorCheckTimerRef = useRef(0);
 
   useEffect(() => {
     if (state.isPaused) return;
@@ -27,6 +28,9 @@ export function useGameLoop() {
       state.activeJobs.forEach(job => {
         const gpu = state.ownedGPUs.find(g => g.id === job.gpuId);
         if (!gpu) return;
+
+        // Skip if GPU has an error
+        if (gpu.status === 'error') return;
 
         const gpuData = GPUS[gpu.type];
         const timeMultiplier = gpuData.performance / 100;
@@ -48,18 +52,42 @@ export function useGameLoop() {
         const wearRate = cooledTemp > 80 ? 0.001 : 0.0005;
         const newHealth = Math.max(0, gpu.health - (wearRate * adjustedDelta));
 
+        // Determine GPU status
+        let gpuStatus = 'running';
+        if (cooledTemp > 90) {
+          gpuStatus = 'overheating';
+        }
+
         dispatch({
           type: 'UPDATE_GPU_STATS',
           gpuId: gpu.id,
           temperature: Math.round(cooledTemp),
           health: newHealth,
           hoursUsed,
+          status: gpuStatus,
         });
 
         // Complete job when done
         if (newProgress >= 1) {
           const failed = cooledTemp > 90 || gpu.health < 50;
           dispatch({ type: 'COMPLETE_JOB', jobId: job.id, failed });
+        }
+      });
+
+      // Update idle GPUs (set status to idle and cool down)
+      state.ownedGPUs.forEach(gpu => {
+        const isIdle = !state.activeJobs.find(j => j.gpuId === gpu.id);
+        if (isIdle && gpu.status !== 'error' && gpu.status !== 'idle') {
+          // Cool down to room temp
+          const newTemp = Math.max(25, gpu.temperature - (adjustedDelta * 5));
+          dispatch({
+            type: 'UPDATE_GPU_STATS',
+            gpuId: gpu.id,
+            temperature: Math.round(newTemp),
+            health: gpu.health,
+            hoursUsed: gpu.hoursUsed,
+            status: 'idle',
+          });
         }
       });
 
@@ -122,6 +150,69 @@ export function useGameLoop() {
         if (hourlyUpkeep > 0) {
           dispatch({ type: 'ADD_POWER_COST', cost: hourlyUpkeep });
         }
+      }
+
+      // Random error generation (check every 10 seconds)
+      errorCheckTimerRef.current += adjustedDelta;
+      if (errorCheckTimerRef.current >= 10) {
+        errorCheckTimerRef.current = 0;
+
+        state.ownedGPUs.forEach(gpu => {
+          // Skip if already in error state
+          if (gpu.status === 'error') {
+            // Auto-recover after 30 seconds
+            if (gpu.errorTime && Date.now() - gpu.errorTime > 30000) {
+              dispatch({ type: 'CLEAR_GPU_ERROR', gpuId: gpu.id });
+            }
+            return;
+          }
+
+          const gpuData = GPUS[gpu.type];
+          const isRunning = state.activeJobs.find(j => j.gpuId === gpu.id);
+
+          if (!isRunning) return; // Only running GPUs can error
+
+          // Calculate error probability based on conditions
+          let errorChance = 0.001; // 0.1% base chance per check
+
+          // Temperature-based errors
+          if (gpu.temperature > 85) {
+            errorChance += 0.01; // +1% if hot
+          }
+          if (gpu.temperature > 92) {
+            errorChance += 0.05; // +5% if critical temp
+          }
+
+          // Health-based errors
+          if (gpu.health < 50) {
+            errorChance += 0.02; // +2% if poor health
+          }
+          if (gpu.health < 20) {
+            errorChance += 0.05; // +5% if critical health
+          }
+
+          // Roll for error
+          if (Math.random() < errorChance) {
+            // Determine error type based on conditions
+            let errorType;
+            const rand = Math.random();
+
+            if (gpu.temperature > 90) {
+              errorType = rand > 0.5 ? 'thermal_shutdown' : 'driver_crash';
+            } else if (gpu.health < 30) {
+              errorType = rand > 0.5 ? 'vram_error' : 'driver_crash';
+            } else {
+              const types = ['vram_error', 'driver_crash', 'power_spike'];
+              errorType = types[Math.floor(Math.random() * types.length)];
+            }
+
+            dispatch({
+              type: 'SET_GPU_ERROR',
+              gpuId: gpu.id,
+              errorType,
+            });
+          }
+        });
       }
     };
 

@@ -35,20 +35,30 @@
   transition: all 0.3s ease;
 }
 
-.gpu-card.active {
+.gpu-card.running {
   border-color: #00ff88;
   box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
 }
 
+.gpu-card.overheating {
+  border-color: #ff6600;
+  box-shadow: 0 0 10px rgba(255, 102, 0, 0.3);
+}
+
+.gpu-card.error {
+  border-color: #ff0000;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+
 .gpu-card.idle {
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 .gpu-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .gpu-name {
@@ -57,20 +67,10 @@
   font-size: 14px;
 }
 
-.gpu-status {
+.gpu-specs-inline {
+  display: flex;
+  gap: 12px;
   font-size: 11px;
-  padding: 2px 8px;
-  border-radius: 3px;
-  font-weight: bold;
-}
-
-.gpu-card.active .gpu-status {
-  background: #00ff88;
-  color: #0a0e27;
-}
-
-.gpu-card.idle .gpu-status {
-  background: #3a5f7f;
   color: #8899aa;
 }
 
@@ -192,6 +192,25 @@
 .gpu-actions {
   display: flex;
   gap: 8px;
+  margin-top: 8px;
+}
+
+.restart-btn {
+  flex: 1;
+  background: #1a3f3f;
+  border: 1px solid #2a5f5f;
+  color: #00ffff;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.restart-btn:hover {
+  background: #2a5f5f;
+  border-color: #3a7f7f;
 }
 
 .sell-btn {

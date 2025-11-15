@@ -23,6 +23,9 @@ const INITIAL_STATE = {
       health: 100,
       temperature: 25,
       hoursUsed: 0,
+      status: 'idle', // idle, running, error, overheating
+      errorType: null, // vram_error, driver_crash, thermal_shutdown, power_spike
+      errorTime: null,
     }
   ],
 
@@ -69,6 +72,9 @@ function gameReducer(state, action) {
             health: 100,
             temperature: 25,
             hoursUsed: 0,
+            status: 'idle',
+            errorType: null,
+            errorTime: null,
           }
         ],
       };
@@ -210,6 +216,44 @@ function gameReducer(state, action) {
               temperature: action.temperature,
               health: action.health,
               hoursUsed: action.hoursUsed,
+              status: action.status || gpu.status,
+            };
+          }
+          return gpu;
+        }),
+      };
+    }
+
+    case 'SET_GPU_ERROR': {
+      return {
+        ...state,
+        ownedGPUs: state.ownedGPUs.map(gpu => {
+          if (gpu.id === action.gpuId) {
+            return {
+              ...gpu,
+              status: 'error',
+              errorType: action.errorType,
+              errorTime: Date.now(),
+            };
+          }
+          return gpu;
+        }),
+        // Cancel any active jobs on this GPU
+        activeJobs: state.activeJobs.filter(j => j.gpuId !== action.gpuId),
+        failedJobs: state.failedJobs + (state.activeJobs.find(j => j.gpuId === action.gpuId) ? 1 : 0),
+      };
+    }
+
+    case 'CLEAR_GPU_ERROR': {
+      return {
+        ...state,
+        ownedGPUs: state.ownedGPUs.map(gpu => {
+          if (gpu.id === action.gpuId) {
+            return {
+              ...gpu,
+              status: 'idle',
+              errorType: null,
+              errorTime: null,
             };
           }
           return gpu;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useGame } from '../store/GameContext';
 import { GPUS } from '../data/gpus';
+import GPUMonitor from './GPUMonitor';
 import './GPUPanel.css';
 
 export default function GPUPanel() {
@@ -14,6 +15,10 @@ export default function GPUPanel() {
     if (window.confirm('Are you sure you want to sell this GPU?')) {
       dispatch({ type: 'SELL_GPU', gpuId });
     }
+  };
+
+  const handleClearError = (gpuId) => {
+    dispatch({ type: 'CLEAR_GPU_ERROR', gpuId });
   };
 
   return (
@@ -32,73 +37,31 @@ export default function GPUPanel() {
           const activeJob = getActiveJob(gpu.id);
 
           return (
-            <div key={gpu.id} className={`gpu-card ${activeJob ? 'active' : 'idle'}`}>
+            <div key={gpu.id} className={`gpu-card ${gpu.status}`}>
               <div className="gpu-header">
                 <div className="gpu-name">{gpuData.name}</div>
-                <div className="gpu-status">
-                  {activeJob ? 'BUSY' : 'IDLE'}
+                <div className="gpu-specs-inline">
+                  <span>{gpuData.vram}GB</span>
+                  <span>{gpuData.powerDraw}W</span>
                 </div>
               </div>
 
-              <div className="gpu-specs">
-                <div className="spec-item">
-                  <span className="spec-label">VRAM:</span>
-                  <span className="spec-value">{gpuData.vram}GB</span>
-                </div>
-                <div className="spec-item">
-                  <span className="spec-label">Perf:</span>
-                  <span className="spec-value">{gpuData.performance}</span>
-                </div>
-                <div className="spec-item">
-                  <span className="spec-label">Power:</span>
-                  <span className="spec-value">{gpuData.powerDraw}W</span>
-                </div>
-              </div>
-
-              <div className="gpu-health">
-                <div className="health-bar">
-                  <div
-                    className="health-fill"
-                    style={{
-                      width: `${gpu.health}%`,
-                      background: gpu.health > 70 ? '#00ff88' : gpu.health > 40 ? '#ffaa00' : '#ff4444'
-                    }}
-                  />
-                </div>
-                <span className="health-text">{gpu.health.toFixed(1)}%</span>
-              </div>
-
-              <div className="gpu-temp">
-                <span className={`temp-value ${gpu.temperature > 80 ? 'hot' : ''}`}>
-                  {gpu.temperature}°C
-                </span>
-                {gpu.temperature > 85 && (
-                  <span className="warning">⚠ THERMAL THROTTLING</span>
-                )}
-              </div>
-
-              {activeJob && (
-                <div className="gpu-job">
-                  <div className="job-name">{activeJob.name}</div>
-                  <div className="job-progress">
-                    <div className="progress-bar">
-                      <div
-                        className="progress-fill"
-                        style={{ width: `${activeJob.progress * 100}%` }}
-                      />
-                    </div>
-                    <span className="progress-text">
-                      {(activeJob.progress * 100).toFixed(0)}%
-                    </span>
-                  </div>
-                </div>
-              )}
+              {/* GPU Monitor visualization */}
+              <GPUMonitor gpu={gpu} gpuData={gpuData} activeJob={activeJob} />
 
               <div className="gpu-actions">
+                {gpu.status === 'error' && (
+                  <button
+                    className="restart-btn"
+                    onClick={() => handleClearError(gpu.id)}
+                  >
+                    Force Restart
+                  </button>
+                )}
                 <button
                   className="sell-btn"
                   onClick={() => handleSellGPU(gpu.id)}
-                  disabled={activeJob}
+                  disabled={activeJob || gpu.status === 'error'}
                 >
                   Sell (${Math.floor(gpuData.resaleValue * (gpu.health / 100))})
                 </button>
