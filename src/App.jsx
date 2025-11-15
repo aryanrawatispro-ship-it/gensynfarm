@@ -5,6 +5,7 @@ import StatsPanel from './components/StatsPanel';
 import GPUPanel from './components/GPUPanel';
 import JobsPanel from './components/JobsPanel';
 import ShopPanel from './components/ShopPanel';
+import PhaserGame from './components/PhaserGame';
 import './App.css';
 
 function GameView() {
@@ -24,6 +25,10 @@ function GameView() {
       <div className="app-content">
         <div className="left-column">
           <StatsPanel />
+          <PhaserGame />
+        </div>
+
+        <div className="middle-column">
           <GPUPanel />
           <JobsPanel />
         </div>
