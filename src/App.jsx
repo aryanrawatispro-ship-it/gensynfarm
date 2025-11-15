@@ -6,6 +6,7 @@ import GPUPanel from './components/GPUPanel';
 import JobsPanel from './components/JobsPanel';
 import ShopPanel from './components/ShopPanel';
 import PhaserGame from './components/PhaserGame';
+import ProductsDashboard from './components/ProductsDashboard';
 import './App.css';
 
 function GameView() {
@@ -29,11 +30,12 @@ function GameView() {
         </div>
 
         <div className="middle-column">
+          <ProductsDashboard />
           <GPUPanel />
-          <JobsPanel />
         </div>
 
         <div className="right-column">
+          <JobsPanel />
           <ShopPanel />
         </div>
       </div>

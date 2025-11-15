@@ -50,6 +50,63 @@ const INITIAL_STATE = {
   // Tutorial/progression
   tutorialComplete: false,
   unlockedFeatures: ['basic_jobs'],
+
+  // Player progression
+  level: 1,
+  experience: 0,
+  experienceToNext: 100,
+
+  // Gensyn Products
+  ownedProducts: [], // ['blockassist', 'codeassist', 'codezero', 'rl_swarm']
+  productStates: {
+    blockassist: {
+      status: 'locked', // locked, idle, running, warning, error
+      errorType: null,
+      errorTime: null,
+      errorDetails: {},
+      activeJob: null,
+      trainingEpisodes: 0,
+      modelAccuracy: 0,
+      lastUpload: null,
+      leaderboardRank: null,
+    },
+    codeassist: {
+      status: 'locked',
+      errorType: null,
+      errorTime: null,
+      errorDetails: {},
+      activeJob: null,
+      suggestionsGiven: 0,
+      acceptanceRate: 0,
+      specializationScore: 0,
+      problemsSolved: 0,
+    },
+    codezero: {
+      status: 'locked',
+      errorType: null,
+      errorTime: null,
+      errorDetails: {},
+      credits: 0,
+      bidSuccessRate: 0,
+      idleTimeReduction: 0,
+      jobWinRate: 0,
+      optimizationActive: false,
+    },
+    rl_swarm: {
+      status: 'locked',
+      errorType: null,
+      errorTime: null,
+      errorDetails: {},
+      activeSession: null,
+      connectedPeers: 0,
+      maxPeers: 50,
+      currentRound: 0,
+      totalRounds: 0,
+      participationStreak: 0,
+      modelAccuracy: 0,
+      rewardsEarned: 0,
+    },
+  },
 };
 
 function gameReducer(state, action) {
@@ -298,6 +355,95 @@ function gameReducer(state, action) {
 
     case 'RESET_GAME': {
       return INITIAL_STATE;
+    }
+
+    // Gensyn Product Actions
+    case 'BUY_PRODUCT': {
+      const { productId, cost } = action;
+      if (state.money < cost) return state;
+      if (state.ownedProducts.includes(productId)) return state;
+
+      return {
+        ...state,
+        money: state.money - cost,
+        ownedProducts: [...state.ownedProducts, productId],
+        productStates: {
+          ...state.productStates,
+          [productId]: {
+            ...state.productStates[productId],
+            status: 'idle',
+          },
+        },
+      };
+    }
+
+    case 'UPDATE_PRODUCT_STATE': {
+      const { productId, updates } = action;
+      return {
+        ...state,
+        productStates: {
+          ...state.productStates,
+          [productId]: {
+            ...state.productStates[productId],
+            ...updates,
+          },
+        },
+      };
+    }
+
+    case 'SET_PRODUCT_ERROR': {
+      const { productId, errorType, errorDetails } = action;
+      return {
+        ...state,
+        productStates: {
+          ...state.productStates,
+          [productId]: {
+            ...state.productStates[productId],
+            status: 'error',
+            errorType,
+            errorTime: Date.now(),
+            errorDetails: errorDetails || {},
+          },
+        },
+      };
+    }
+
+    case 'CLEAR_PRODUCT_ERROR': {
+      const { productId } = action;
+      return {
+        ...state,
+        productStates: {
+          ...state.productStates,
+          [productId]: {
+            ...state.productStates[productId],
+            status: 'idle',
+            errorType: null,
+            errorTime: null,
+            errorDetails: {},
+          },
+        },
+      };
+    }
+
+    case 'ADD_EXPERIENCE': {
+      const newExp = state.experience + action.amount;
+      const leveledUp = newExp >= state.experienceToNext;
+
+      if (leveledUp) {
+        const newLevel = state.level + 1;
+        const expOverflow = newExp - state.experienceToNext;
+        return {
+          ...state,
+          level: newLevel,
+          experience: expOverflow,
+          experienceToNext: Math.floor(100 * Math.pow(1.5, newLevel - 1)),
+        };
+      }
+
+      return {
+        ...state,
+        experience: newExp,
+      };
     }
 
     default:

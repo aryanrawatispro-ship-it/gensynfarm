@@ -1,0 +1,300 @@
+.rl-swarm-panel {
+  background: #1a1f3a;
+  border-radius: 8px;
+  padding: 16px;
+  border: 1px solid #2a3f5f;
+}
+
+.rl-swarm-panel.locked {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.locked-message {
+  text-align: center;
+  color: #8899aa;
+}
+
+.lock-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.locked-message h3 {
+  margin: 0 0 8px 0;
+  color: #fff;
+  font-size: 20px;
+}
+
+.locked-message p {
+  margin: 4px 0;
+  font-size: 13px;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.panel-header h3 {
+  margin: 0;
+  color: #00ff88;
+  font-size: 18px;
+}
+
+.swarm-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #8899aa;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #666666;
+}
+
+.status-dot.active {
+  background: #00ff88;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7);
+  }
+  50% {
+    opacity: 0.8;
+    box-shadow: 0 0 0 10px rgba(0, 255, 136, 0);
+  }
+}
+
+/* Network Diagram */
+.network-diagram {
+  position: relative;
+  height: 200px;
+  background: #0f1525;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.network-center {
+  position: absolute;
+  z-index: 10;
+}
+
+.your-node {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00ff88, #00aaff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: #000;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+  animation: yourNodePulse 3s ease-in-out infinite;
+}
+
+@keyframes yourNodePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.peer-nodes {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.peer-node {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
+}
+
+.node-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #2a3f5f;
+  border: 2px solid #00aaff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: #00aaff;
+  margin-left: -15px;
+  margin-top: -15px;
+  animation: peerBlink 2s ease-in-out infinite;
+}
+
+@keyframes peerBlink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Session Info */
+.session-info {
+  background: #0f1525;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.phase-indicator {
+  margin-bottom: 12px;
+}
+
+.phase-label {
+  font-size: 11px;
+  color: #8899aa;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.phase-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #00ff88;
+  margin-bottom: 8px;
+}
+
+.phase-progress {
+  height: 8px;
+  background: #1a1f3a;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.phase-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #00ff88, #00aaff);
+  transition: width 1s linear;
+}
+
+.phase-timer {
+  font-size: 12px;
+  color: #8899aa;
+  text-align: right;
+}
+
+.round-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #8899aa;
+}
+
+/* Metrics */
+.swarm-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.metric {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  background: #0f1525;
+  border-radius: 4px;
+}
+
+.metric-label {
+  font-size: 12px;
+  color: #8899aa;
+}
+
+.metric-value {
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.metric-value.money {
+  color: #00ff88;
+}
+
+/* Actions */
+.swarm-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.action-btn {
+  flex: 1;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  border: 1px solid;
+}
+
+.start-btn {
+  background: #1a3f1a;
+  border-color: #2a5f2a;
+  color: #00ff88;
+}
+
+.start-btn:hover {
+  background: #2a5f2a;
+  border-color: #3a7f3a;
+}
+
+.stop-btn {
+  background: #3a1f1f;
+  border-color: #5a2f2f;
+  color: #ff8888;
+}
+
+.stop-btn:hover {
+  background: #5a2f2f;
+  border-color: #7a3f3f;
+}
+
+/* Phase Description */
+.phase-description {
+  background: rgba(0, 170, 255, 0.1);
+  border: 1px solid #00aaff;
+  border-radius: 4px;
+  padding: 12px;
+}
+
+.phase-description p {
+  margin: 0;
+  font-size: 12px;
+  color: #00aaff;
+  line-height: 1.6;
+}
+
+.phase-description strong {
+  color: #fff;
+}
