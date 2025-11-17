@@ -1,0 +1,82 @@
+.stats-panel {
+  background: #1a1f3a;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid #2a3f5f;
+}
+
+.stats-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.stats-header h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #00ff88;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.game-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.game-controls button,
+.game-controls select {
+  background: #2a3f5f;
+  border: 1px solid #3a5f7f;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.game-controls button:hover,
+.game-controls select:hover {
+  background: #3a5f7f;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: #8899aa;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.stat-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.stat-value.money {
+  color: #00ff88;
+}
+
+.stat-value.failure {
+  color: #ff4444;
+}
+
+@media (max-width: 1200px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

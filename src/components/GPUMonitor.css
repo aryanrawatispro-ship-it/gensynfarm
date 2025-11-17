@@ -1,0 +1,333 @@
+.gpu-monitor {
+  background: #0a0e1a;
+  border-radius: 8px;
+  padding: 12px;
+  border: 2px solid #2a3f5f;
+  position: relative;
+  overflow: hidden;
+}
+
+.gpu-monitor::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: scan 3s linear infinite;
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(200px);
+  }
+}
+
+.gpu-monitor.error {
+  border-color: #ff0000;
+  animation: errorPulse 1s ease-in-out infinite;
+}
+
+@keyframes errorPulse {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+  }
+}
+
+.gpu-monitor.running {
+  border-color: #00ff88;
+}
+
+.gpu-monitor.overheating {
+  border-color: #ff6600;
+  animation: overheatingPulse 1s ease-in-out infinite;
+}
+
+@keyframes overheatingPulse {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(255, 102, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 102, 0, 0.6);
+  }
+}
+
+.monitor-screen {
+  background: #000000;
+  border-radius: 4px;
+  padding: 12px;
+  min-height: 180px;
+  position: relative;
+}
+
+.status-light-container {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  z-index: 10;
+}
+
+.status-light {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: relative;
+  animation: statusBlink 2s ease-in-out infinite;
+}
+
+@keyframes statusBlink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.status-light.error {
+  animation: errorBlink 0.5s ease-in-out infinite;
+}
+
+@keyframes errorBlink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.light-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0.5;
+  }
+}
+
+.status-label {
+  font-size: 9px;
+  color: #fff;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.gpu-visual {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.gpu-icon {
+  width: 60px;
+  height: 60px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.gpu-chip {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #1a3f5f, #0a1f3f);
+  border: 2px solid #00aaff;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.gpu-pcb {
+  width: 60px;
+  height: 10px;
+  background: #0a3f0a;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.gpu-fans {
+  display: flex;
+  gap: 4px;
+  position: absolute;
+  bottom: 12px;
+  left: 5px;
+}
+
+.fan {
+  width: 12px;
+  height: 12px;
+  border: 2px solid #888888;
+  border-radius: 50%;
+  position: relative;
+}
+
+.fan::before,
+.fan::after {
+  content: '';
+  position: absolute;
+  background: #888888;
+  top: 50%;
+  left: 50%;
+}
+
+.fan::before {
+  width: 100%;
+  height: 2px;
+  transform: translate(-50%, -50%);
+}
+
+.fan::after {
+  width: 2px;
+  height: 100%;
+  transform: translate(-50%, -50%);
+}
+
+.fan.spinning {
+  animation: spin 1s linear infinite;
+  border-color: #00ff88;
+}
+
+.fan.spinning::before,
+.fan.spinning::after {
+  background: #00ff88;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.stat-bars {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stat-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stat-bar-label {
+  font-size: 9px;
+  color: #8899aa;
+  width: 32px;
+  font-weight: bold;
+}
+
+.stat-bar-container {
+  flex: 1;
+  height: 8px;
+  background: #1a1f3a;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #2a3f5f;
+}
+
+.stat-bar-fill {
+  height: 100%;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.stat-bar-value {
+  font-size: 9px;
+  color: #fff;
+  min-width: 35px;
+  text-align: right;
+  font-weight: bold;
+}
+
+.error-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 0, 0, 0.2);
+  border: 2px solid #ff0000;
+  border-radius: 6px;
+  padding: 12px;
+  text-align: center;
+  width: 90%;
+  backdrop-filter: blur(5px);
+}
+
+.error-icon {
+  font-size: 24px;
+  margin-bottom: 4px;
+  animation: errorShake 0.5s ease-in-out infinite;
+}
+
+@keyframes errorShake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
+}
+
+.error-text {
+  font-size: 11px;
+  color: #ff0000;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.error-recovery {
+  font-size: 9px;
+  color: #ff8888;
+}
+
+.job-info {
+  margin-top: 8px;
+  padding: 6px;
+  background: rgba(0, 170, 255, 0.1);
+  border: 1px solid #00aaff;
+  border-radius: 4px;
+}
+
+.job-info-name {
+  font-size: 10px;
+  color: #00aaff;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.job-info-details {
+  font-size: 9px;
+  color: #8899aa;
+}

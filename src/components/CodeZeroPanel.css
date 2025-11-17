@@ -1,0 +1,609 @@
+.codezero-panel {
+  background: #1a1f3a;
+  border-radius: 8px;
+  padding: 16px;
+  border: 1px solid #2a3f5f;
+}
+
+.codezero-panel.locked {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.panel-header h3 {
+  margin: 0;
+  color: #00aaff;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.optimization-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #8899aa;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #666;
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+.status-dot.active {
+  background: #00ff88;
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+.status-dot.idle {
+  background: #888;
+  animation: none;
+}
+
+@keyframes statusPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+}
+
+/* Credits Balance */
+.credits-balance {
+  background: #0f1525;
+  border: 2px solid #2a3f5f;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.balance-display {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.balance-label {
+  font-size: 14px;
+  color: #8899aa;
+  font-weight: bold;
+}
+
+.balance-amount {
+  font-size: 24px;
+  color: #ffaa00;
+  font-weight: bold;
+  font-family: monospace;
+}
+
+.buy-credits-btn {
+  padding: 8px 16px;
+  background: #1a3f1a;
+  border: 1px solid #2a5f2a;
+  color: #00ff88;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.buy-credits-btn:hover {
+  background: #2a5f2a;
+  border-color: #3a7f3a;
+}
+
+/* Active Job Display */
+.active-job-display {
+  background: #0f1525;
+  border: 2px solid #00ff88;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 16px;
+  animation: jobPulse 2s ease-in-out infinite;
+}
+
+@keyframes jobPulse {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+  }
+}
+
+.job-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.job-name {
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.job-difficulty {
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 3px;
+  background: #1a3f1a;
+  color: #00ff88;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.progress-bar-container {
+  background: #0a0e1a;
+  border-radius: 4px;
+  height: 20px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #00ff88, #00aaff);
+  transition: width 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #8899aa;
+  margin-bottom: 12px;
+}
+
+.stop-job-btn {
+  width: 100%;
+  padding: 8px;
+  background: #3f1a1a;
+  border: 1px solid #5a2f2f;
+  color: #ff8888;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.stop-job-btn:hover {
+  background: #5a2f2f;
+  border-color: #7a3f3f;
+}
+
+/* Available Jobs */
+.available-jobs {
+  margin-bottom: 16px;
+}
+
+.available-jobs h4 {
+  margin: 0 0 12px 0;
+  color: #00aaff;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.jobs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.job-card {
+  background: #0f1525;
+  border: 2px solid #2a3f5f;
+  border-radius: 6px;
+  padding: 12px;
+  transition: all 0.2s ease;
+}
+
+.job-card:hover {
+  border-color: #3a5f7f;
+  transform: translateX(4px);
+}
+
+.job-card.easy {
+  border-left: 4px solid #00ff88;
+}
+
+.job-card.medium {
+  border-left: 4px solid #ffaa00;
+}
+
+.job-card.hard {
+  border-left: 4px solid #ff4444;
+}
+
+.job-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.job-info {
+  flex: 1;
+}
+
+.job-title {
+  font-size: 13px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.job-desc {
+  font-size: 11px;
+  color: #8899aa;
+}
+
+.difficulty-badge {
+  font-size: 10px;
+  padding: 4px 8px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.difficulty-badge.easy {
+  background: #1a3f1a;
+  color: #00ff88;
+}
+
+.difficulty-badge.medium {
+  background: #3f3f1a;
+  color: #ffaa00;
+}
+
+.difficulty-badge.hard {
+  background: #3f1a1a;
+  color: #ff4444;
+}
+
+.job-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.stat {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+}
+
+.stat-label {
+  color: #8899aa;
+}
+
+.stat-value {
+  color: #fff;
+  font-weight: bold;
+}
+
+.stat-value.credits {
+  color: #ffaa00;
+}
+
+.stat-value.money {
+  color: #00ff88;
+}
+
+.stat-value.xp {
+  color: #00aaff;
+}
+
+.job-requirements {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #8899aa;
+  margin-bottom: 12px;
+  padding: 8px;
+  background: #0a0e1a;
+  border-radius: 4px;
+}
+
+.bid-btn {
+  width: 100%;
+  padding: 8px;
+  background: #1a3f1a;
+  border: 1px solid #2a5f2a;
+  color: #00ff88;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.bid-btn:hover:not(:disabled) {
+  background: #2a5f2a;
+  border-color: #3a7f3a;
+}
+
+.bid-btn:disabled {
+  background: #1a1f2a;
+  border-color: #2a3f4f;
+  color: #5a6f7f;
+  cursor: not-allowed;
+}
+
+/* Metrics Dashboard */
+.metrics-dashboard {
+  background: #0f1525;
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.metrics-dashboard h4 {
+  margin: 0 0 12px 0;
+  color: #00aaff;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.metric {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #1a2a3a;
+  font-size: 12px;
+}
+
+.metric:last-child {
+  border-bottom: none;
+}
+
+.metric-label {
+  color: #8899aa;
+}
+
+.metric-value {
+  color: #fff;
+  font-weight: bold;
+}
+
+.metric-value.highlight {
+  color: #00ff88;
+  font-size: 14px;
+}
+
+/* Bid Confirmation Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  background: #1a1f3a;
+  border: 2px solid #00aaff;
+  border-radius: 8px;
+  padding: 0;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 0 30px rgba(0, 170, 255, 0.3);
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #2a3f5f;
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: #00aaff;
+  font-size: 18px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #8899aa;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.bid-warning {
+  font-size: 14px;
+  color: #fff;
+  margin-bottom: 16px;
+  padding: 12px;
+  background: rgba(255, 170, 0, 0.1);
+  border: 1px solid #ffaa00;
+  border-radius: 4px;
+}
+
+.bid-warning strong {
+  color: #ffaa00;
+}
+
+.bid-details {
+  background: #0f1525;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #1a2a3a;
+  font-size: 13px;
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-row span:first-child {
+  color: #8899aa;
+}
+
+.detail-row span:last-child {
+  color: #fff;
+  font-weight: bold;
+}
+
+.detail-row .highlight {
+  color: #00aaff;
+}
+
+.detail-row .money {
+  color: #00ff88;
+}
+
+.detail-row .credits {
+  color: #ffaa00;
+}
+
+.bid-note {
+  font-size: 12px;
+  color: #ff8888;
+  margin-bottom: 16px;
+  padding: 8px;
+  background: rgba(255, 68, 68, 0.1);
+  border: 1px solid #ff4444;
+  border-radius: 4px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.confirm-bid-btn {
+  flex: 1;
+  padding: 12px;
+  background: #1a3f1a;
+  border: 1px solid #2a5f2a;
+  color: #00ff88;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.confirm-bid-btn:hover {
+  background: #2a5f2a;
+  border-color: #3a7f3a;
+}
+
+.cancel-bid-btn {
+  flex: 1;
+  padding: 12px;
+  background: #3f1a1a;
+  border: 1px solid #5a2f2f;
+  color: #ff8888;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.cancel-bid-btn:hover {
+  background: #5a2f2f;
+  border-color: #7a3f3f;
+}
+
+/* Locked State */
+.locked-message {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.lock-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.locked-message h3 {
+  margin: 0 0 12px 0;
+  color: #00aaff;
+  font-size: 20px;
+}
+
+.locked-message p {
+  margin: 8px 0;
+  color: #8899aa;
+  font-size: 14px;
+}

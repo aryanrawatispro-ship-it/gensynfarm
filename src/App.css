@@ -1,0 +1,156 @@
+.app {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.logo-icon {
+  font-size: 40px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+.logo h1 {
+  margin: 0;
+  font-size: 48px;
+  color: #00ff88;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-weight: bold;
+  text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #8899aa;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.app-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  flex: 1;
+}
+
+.left-column,
+.middle-column,
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.app-footer {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #2a3f5f;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gensyn-branding {
+  font-size: 13px;
+  color: #8899aa;
+}
+
+.gensyn-branding strong {
+  color: #00ff88;
+  font-weight: bold;
+}
+
+.footer-links button {
+  background: #3a1f1f;
+  border: 1px solid #5a2f2f;
+  color: #ff8888;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.footer-links button:hover {
+  background: #5a2f2f;
+  border-color: #7a3f3f;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0e27;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a3f5f;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3a5f7f;
+}
+
+/* Responsive design */
+@media (max-width: 1600px) {
+  .app-content {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .right-column {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 1200px) {
+  .app-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .logo h1 {
+    font-size: 32px;
+  }
+
+  .app {
+    padding: 12px;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
